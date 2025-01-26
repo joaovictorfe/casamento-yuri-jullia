@@ -29,8 +29,8 @@ export default function BemVindo() {
 
 function Contador() {
     function diferenca() {
-        const agora = new Date();
-        const destino = new Date(2025, 5, 21, 10, 0, 0);
+        const agora: any = new Date();
+        const destino: any = new Date(2025, 5, 21, 10, 0, 0);
         
          return (destino - agora) / 1000;
     }
