@@ -250,6 +250,7 @@ export function PresenteColaborativo({ id, nome, urlfoto: imgUrl, valor: valorTo
                                 paddingTop: '-1px',
                                 paddingBottom: '-1px',
                                 borderColor: '#ccc',
+                                fontSize: '16px',
                                 boxShadow: 'none',
                                 '&:hover': {
                                     borderColor: '#aaa',
@@ -261,7 +262,7 @@ export function PresenteColaborativo({ id, nome, urlfoto: imgUrl, valor: valorTo
                     <br />
 
                     <InputNumber
-                        className='w-[280px]'
+                        className='w-[280px] text-base'
                         placeholder='Com quanto quer contribuir?'
                         keyboard
                         size="middle"
