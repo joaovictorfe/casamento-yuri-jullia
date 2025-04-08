@@ -5,13 +5,13 @@ import { ConvidadosApi } from '@/data/services/convidados.api';
 import useQuery, { queryKeys } from '@/hooks/useQuery';
 import { HeartOutlined } from '@ant-design/icons';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AutoComplete, Button, Col, message, Row } from 'antd';
+import { Button, message } from 'antd';
 import { AxiosResponse } from 'axios';
 import React from 'react';
+import Select from 'react-select';
 
 export default function Presenca() {
 
-    const [inputValue, setInputValue] = React.useState<string>('');
     const [convidadoSelecionado, setConvidadoSelecionado] = React.useState<IConvidado | undefined>();
     const [tipoDeTelaDeConfirmacaoDePresenca, setTipoDeTelaDeConfirmacaoDePresenca] = React.useState<'confirmar' | 'confirmado'>('confirmar');
 
@@ -39,7 +39,6 @@ export default function Presenca() {
                 return { ...listaAnterior, data: listaAtualizada };
             })
             setTipoDeTelaDeConfirmacaoDePresenca('confirmado');
-            setInputValue('');
             setConvidadoSelecionado(undefined);
         },
         onError: (error) => {
@@ -74,7 +73,6 @@ export default function Presenca() {
     }
 
     function novaConfirmacao() {
-        setInputValue('');
         setConvidadoSelecionado(undefined);
         setTipoDeTelaDeConfirmacaoDePresenca('confirmar');
     }
@@ -87,22 +85,29 @@ export default function Presenca() {
                     <p className='great-vibes-regular tituloPresentes'>presença</p>
                 </div>
 
-                <AutoComplete
+                <Select
                     className='w-80 lg:w-1/3'
                     options={options}
-                    placeholder="Escreva seu nome"
-                    size='large'
-                    filterOption={(inputValue, option) =>
-                        option?.label.toLowerCase().includes(inputValue.toLowerCase()) || false
-                    }
-                    onChange={(value) => {
-                        setConvidadoSelecionado(undefined);
-                        setInputValue(value);
+                    isClearable
+                    onChange={(selectedOption) => {
+                        setConvidadoSelecionado(data?.data.find(convidado => convidado.id == selectedOption?.value));
                     }}
-                    value={inputValue}
-                    onSelect={(value) => {
-                        setInputValue(data?.data.find(convidado => convidado.id == value)?.nome || '');
-                        setConvidadoSelecionado(data?.data.find(convidado => convidado.id == value));
+                    isSearchable
+                    placeholder="Escreva seu nome"
+                    noOptionsMessage={() => 'Nenhum convidado encontrado'}
+                    value={convidadoSelecionado ? { value: convidadoSelecionado.id, label: convidadoSelecionado.nome } : null}
+                    styles={{
+                        control: (provided) => ({
+                            ...provided,
+                            paddingTop: '1px',
+                            paddingBottom: '1px',
+                            borderRadius: '10px',
+                            borderColor: '#ccc',
+                            boxShadow: 'none',
+                            '&:hover': {
+                                borderColor: '#aaa',
+                            },
+                        }),
                     }}
                 />
 

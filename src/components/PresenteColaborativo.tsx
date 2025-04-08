@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import { AutoComplete, Button, Divider, Flex, InputNumber, message, Modal, Progress } from 'antd';
+import { Button, Divider, Flex, InputNumber, message, Modal, Progress } from 'antd';
 import { IPresente } from '@/data/interfaces/presente';
 import { CloseCircleFilled } from '@ant-design/icons';
 import useQuery, { queryKeys } from '@/hooks/useQuery';
@@ -8,12 +8,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PresentesApi } from '@/data/services/presentes.api';
 import { IConvidado, IConvidadoPresentear } from '@/data/interfaces/convidado';
 import { AxiosResponse } from 'axios';
+import Select from 'react-select';
 
 export function PresenteColaborativo({ id, nome, urlfoto: imgUrl, valor: valorTotal, valorobtido: valorObtido }: IPresente) {
 
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [valorContribuido, setValorContribuido] = React.useState<number | null | undefined>();
-    const [inputValue, setInputValue] = React.useState<string>('');
     const [convidadoSelecionado, setConvidadoSelecionado] = React.useState<IConvidado | undefined>();
 
     const [pixCopiaeCola, setPixCopiaeCola] = React.useState<string | undefined>();
@@ -81,7 +81,6 @@ export function PresenteColaborativo({ id, nome, urlfoto: imgUrl, valor: valorTo
             });
 
             setConvidadoSelecionado(undefined);
-            setInputValue('');
             setIsModalOpen(false);
             setPixCopiaeCola(resultado.data.copiaECola);
         },
@@ -232,35 +231,44 @@ export function PresenteColaborativo({ id, nome, urlfoto: imgUrl, valor: valorTo
 
                     <h3 className='RequisicaoNomePresenteador'>Quem está tornando esse presente possível</h3>
 
-                    <AutoComplete
-                        style={{ width: 280 }}
+                    <Select
                         options={options}
-                        placeholder="Escreva seu nome"
-                        size='large'
-                        filterOption={(inputValue, option) =>
-                            option?.label.toLowerCase().includes(inputValue.toLowerCase()) || false
-                        }
-                        onChange={(value) => {
-                            setConvidadoSelecionado(undefined);
-                            setInputValue(value);
+                        isClearable
+                        onChange={(selectedOption) => {
+                            setConvidadoSelecionado(data?.data.find(convidado => convidado.id == selectedOption?.value));
                         }}
-                        value={inputValue}
-                        onSelect={(value) => {
-                            setInputValue(data?.data.find(convidado => convidado.id == value)?.nome || '');
-                            setConvidadoSelecionado(data?.data.find(convidado => convidado.id == value));
+                        isSearchable
+                        placeholder="Escreva seu nome"
+                        noOptionsMessage={() => 'Nenhum convidado encontrado'}
+                        value={convidadoSelecionado ? { value: convidadoSelecionado.id, label: convidadoSelecionado.nome } : null}
+                        styles={{
+                            control: (provided) => ({
+                                ...provided,
+                                width: '280px',
+                                marginInline: 'auto',
+                                borderRadius: '8px',
+                                paddingTop: '-1px',
+                                paddingBottom: '-1px',
+                                borderColor: '#ccc',
+                                boxShadow: 'none',
+                                '&:hover': {
+                                    borderColor: '#aaa',
+                                },
+                            }),
                         }}
                     />
 
                     <br />
 
                     <InputNumber
+                        className='w-[280px]'
                         placeholder='Com quanto quer contribuir?'
                         keyboard
                         size="middle"
                         max={parseFloat(valorTotal) - parseFloat(valorObtido)}
                         min={0}
                         onChange={setValorContribuido}
-                        style={{ width: 280, marginTop: 15 }}
+                        style={{ paddingBlock: 4.5, borderRadius: 8 }}
                     />
 
                     <br />
