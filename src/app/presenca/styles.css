@@ -1,3 +1,47 @@
 #presenca {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #0F1434;
+    height: 100%;
+}
+
+#contentPresenca {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    font-size: 2.8vh;
+    line-height: 1.1;
+    margin-bottom: 3.5px;
+    text-align: center;
+    color: white;
+}
+
+#presencaEmBreve {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex: 1;
+    justify-content: center;
+}
+
+#tituloDeApresentacao {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vh;
+    margin-top: 5vh;
+
+    p {
+        font-size: 13vh;
+        margin-top: -40px;
+    }
 }

@@ -1,3 +1,200 @@
 #presentes {
+    width: 100vw;
+    height: 100vh;
     background-color: #0F1434;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollable-section {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#tituloDeApresentacao {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vh;
+    margin-top: 5vh;
+
+    p {
+        font-size: 13vh;
+        margin-top: -40px;
+    }
+}
+
+#ajudaLuaDeMel {
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    align-self: center;
+    align-items: center;
+    background-color: #40628F;
+    width: 75vw;
+    max-width: fit-content;
+    border-radius: 70px;
+    padding: 12px 23px;
+    color: white;
+
+    h1 {
+        font-size: 2.8vh;
+        line-height: 1.1;
+        margin-bottom: 3.5px;
+        text-align: left;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 23px;
+    }
+}
+
+#categoriasPresentes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5vh;
+    color: white;
+    margin: 20px 15px;
+
+    h2 {
+        font-size: 2.8vh;
+    }
+
+    h3 {
+        font-size: 2.3vh;
+    }
+}
+
+#outraCategoria {
+    padding: 3px;
+    padding-left: 20px;
+    padding-right: 30px;
+    margin-right: -30px;
+    border: #40628F 1px solid;
+    border-radius: 30px;
+    color: #40628F;
+}
+
+#listaDePresentes {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 0 15px;
+}
+
+.row-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.col-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.presenteColaborativo {
+    background-color: white;
+    border-radius: 15px;
+    border-width: 1px;
+    border-color: #40628F;
+    padding: 10px;
+    flex-grow: 1;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .presenteImagem {
+        object-fit: contain;
+        max-height: 7ch;
+    }
+}
+
+.informacoesPresenteColaborativo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    color: #0F1434;
+
+    div {
+        flex: 1;
+        width: 50%;
+    }
+}
+
+.setaRedirect {
+    height: 15px;
+    width: 15px;
+    align-self: flex-end;
+    margin: 5px;
+}
+
+.modalPresenteTitulo {
+    text-align: center;
+    color: #0F1434;
+
+    h3 {
+        font-size: 2.3vh;
+        font-weight: 500;
+    }
+
+    h1 {
+        font-size: 4vh;
+        font-weight: 700;
+    }
+
+    .RequisicaoNomePresenteador {
+        font-size: 2vh;
+        font-weight: 500;
+        margin-top: 10px;
+        margin-bottom: 12px;
+        text-align: center;
+        padding-left: 70px;
+        padding-right: 70px;
+    }
+}
+
+.modalPresenteFormasDePresentear {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    color: #0F1434;
+}
+
+.modalPresenteBotoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Container da imagem */
+.image-container {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.presenteImagemModal {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
 }

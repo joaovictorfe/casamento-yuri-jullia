@@ -2,23 +2,25 @@
 import { useEffect, useState } from "react";
 
 export function Contador() {
-    
 	function diferenca() {
 		const agora: any = new Date();
 		const destino: any = new Date(2025, 5, 21, 10, 0, 0);
-
-		return (destino - agora) / 1000;
+		return Math.floor((destino - agora) / 1000);
 	}
 
-	const [segundosTotais, setSegundosTotais] = useState(Math.floor(diferenca()));
+	const [segundosTotais, setSegundosTotais] = useState(0);
 
 	useEffect(() => {
+		setSegundosTotais(diferenca());
+
 		const intervalo = setInterval(() => {
-			setSegundosTotais(Math.floor(diferenca()));
+			setSegundosTotais(diferenca());
 		}, 1000);
 
 		return () => clearInterval(intervalo);
 	}, []);
+
+	if (segundosTotais <= 0) return null;
 
 	return (
 		<div id="contador">
@@ -43,5 +45,4 @@ export function Contador() {
 			</div>
 		</div>
 	);
-
 }

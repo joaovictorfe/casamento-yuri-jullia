@@ -23,17 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
-      </head>
-      <body
+      <div
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
         {children}
-      </body>
-    </html>
+      </div>
   );
 }

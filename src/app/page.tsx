@@ -1,8 +1,17 @@
 'use client';
 import { Contador } from "@/components/Contador";
 import Header from "@/components/Header";
+import useQuery from "@/hooks/useQuery";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 export default function Home() {
+
+	const queryClient = useQueryClient();
+	
+	useEffect(() => {
+		queryClient && useQuery.preFetchDados(queryClient);
+	}, [queryClient]);
 
 	return (
 		<div id="bgImage">
