@@ -21,14 +21,14 @@ export default function Presentes() {
                     <h1>Lista de</h1>
                     <p className='great-vibes-regular tituloPresentes'>presentes</p>
                 </div>
-
+{/* 
                 <button id='ajudaLuaDeMel'>
                     <img src='./svgs/coracao.svg' alt='imagem de coração' />
                     <div>
                         <h1>Ajude com nossa lua de mel</h1>
                         <p>clique aqui</p>
                     </div>
-                </button>
+                </button> */}
 
                 <div id='categoriasPresentes'>
                     <div id='categoriaSelecionada'>
