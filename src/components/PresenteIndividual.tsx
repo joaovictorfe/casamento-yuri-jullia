@@ -74,9 +74,11 @@ export function PresenteIndividual({ id, nome, urlfoto: imgUrl, valor: valorTota
             });
 
             if (presenteOpcaoDoacao === 'loja' && urlloja) {
-                setTimeout(() => {
-                    window.open(urlloja, '_blank', 'noopener,noreferrer');
-                }, 1500);
+                var menuAddress = urlloja;
+
+                var link = document.getElementById('linkLoja');
+                link?.setAttribute('href', menuAddress);
+                link?.click();
             }
 
             if (presenteOpcaoDoacao === 'pix') {
@@ -214,6 +216,7 @@ export function PresenteIndividual({ id, nome, urlfoto: imgUrl, valor: valorTota
                     },
                 }}
             >
+                <a id='linkLoja' href={urlloja?.toString()} target="_blank" rel="noopener noreferrer"></a>
                 <div className='modalPresenteTitulo'>
                     <h3>PRESENTEAR COM</h3>
                     <h1 style={{ color: '#0F1434' }}>{nome}</h1>
