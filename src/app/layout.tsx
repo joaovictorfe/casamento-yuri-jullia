@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Casamento Júllia e Yuri",
   description: "Casamento Júllia e Yuri",
+  icons: {
+    icon: "./favicon.png",
+  },
 };
 
 export default function RootLayout({
