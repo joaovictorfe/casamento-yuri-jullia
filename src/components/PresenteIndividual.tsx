@@ -23,6 +23,11 @@ export function PresenteIndividual({ id, nome, urlfoto: imgUrl, valor: valorTota
 
     const queryClient = useQueryClient();
     const { data } = useQuery.buscaListadeConvidados();
+    const { data: convidadoPresente } = useQuery.buscaRelacaoConvidadoPresente();
+
+    const presenteConcedido = parseFloat(valorObtido) >= parseFloat(valorTotal)
+        ? convidadoPresente?.data.find((item) => item.presenteid === id)
+        : undefined;
 
     const contribuirComPixMutation = useMutation({
         mutationFn: (valor: number) => {
@@ -171,19 +176,30 @@ export function PresenteIndividual({ id, nome, urlfoto: imgUrl, valor: valorTota
         <>
             {contextHolder}
             <div className='relative h-full'>
-                <div className='presenteColaborativo' onClick={() => showModal()}>
+                <div className={`presenteColaborativo ${parseFloat(valorObtido) >= parseFloat(valorTotal) ? 'blur-[0.8px]' : null}`} onClick={() => showModal()}>
                     <img src={imgUrl} alt='imagem do presente' className="presenteImagem" />
 
                     <div className="informacoesPresenteColaborativo">
-                        <div>
-                            <h2>{nome}</h2>
+                        <div className='flex flex-col items-start justify-center'>
+                            <p className='text-base text=[#000]'>{nome}</p>
+                            <p className='text-[12px] text-[#5f5f5f]'>R$ {valorTotal}</p>
                         </div>
                         <img src='./svgs/seta.svg' alt='seta de redirecionamento' className="setaRedirect" />
                     </div>
                 </div>
 
                 {parseFloat(valorObtido) >= parseFloat(valorTotal) && (
-                    <div className="absolute inset-0 bg-black/60 z-10 cursor-not-allowed rounded-[15px]"></div>
+                    <div className="absolute inset-0 bg-black/60 z-10 cursor-not-allowed rounded-[15px]">
+                        {
+                            presenteConcedido &&
+                            <div className="flex flex-col items-center justify-center h-full">
+                                <div className='rounded-[15px] ' style={{ backgroundColor: 'rgba(5, 10, 48, 0.5)', padding: 10, marginBottom: 25 }}>
+                                    <p className="text-white text-sm sm:text-base md:text-lg text-center pb-[5px]">🎁 Presenteado por:</p>
+                                    <p className="text-white text-sm sm:text-base md:text-lg font-bold text-center">{presenteConcedido.nomeconvidado}</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 )}
             </div>
 
@@ -238,7 +254,10 @@ export function PresenteIndividual({ id, nome, urlfoto: imgUrl, valor: valorTota
                     <h3>escolha a forma de presentar:</h3>
 
                     <div className='modalPresenteFormasDePresentear'>
-                        <img src={imgUrl} alt='imagem do presente' style={{ maxWidth: '40%', maxHeight: '40%', objectFit: 'contain' }} />
+                        <div className='max-h-40% max-w-[40%] flex flex-col items-center justify-center'>
+                            <img src={imgUrl} alt='imagem do presente' style={{ objectFit: 'contain' }} />
+                            <p className='mt-2'>R$ {valorTotal}</p>
+                        </div>
 
                         <RadioOptions
                             options={[
@@ -262,7 +281,7 @@ export function PresenteIndividual({ id, nome, urlfoto: imgUrl, valor: valorTota
                         onClick={handleClick}
                         loading={presentearMutation.isPending || contribuirComPixMutation.isPending}
                     >
-                        Continuar
+                        Presentear
                     </Button>
                 </div>
 

@@ -9,3 +9,11 @@ export interface IConvidadoPresentear {
     PresenteId: string;
     ValorConcedido: number;
 }
+
+export interface IConvidadoPresente {
+    id: string;
+    convidadoid: string;
+    presenteid: string;
+    nomeconvidado: string;
+    valorconcedido: number;
+}

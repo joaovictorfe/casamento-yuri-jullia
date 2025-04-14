@@ -31,6 +31,16 @@ export function PresenteColaborativo({ id, nome, urlfoto: imgUrl, valor: valorTo
     };
 
     const { data } = useQuery.buscaListadeConvidados();
+    const { data: convidadoPresente } = useQuery.buscaRelacaoConvidadoPresente();
+
+    const presenteConcedido = parseFloat(valorObtido) >= parseFloat(valorTotal)
+        ? convidadoPresente?.data
+            .filter((item) => item.presenteid === id)
+            .filter((item, index, array) => array.findIndex((i) => i.convidadoid === item.convidadoid) === index)
+            .map((item) => item.nomeconvidado)
+            .map((nome, _, arr) => arr.length > 2 ? nome.split(' ')[0] : nome)
+            .join(', ')
+        : undefined;
 
     const queryClient = useQueryClient();
 
@@ -160,21 +170,32 @@ export function PresenteColaborativo({ id, nome, urlfoto: imgUrl, valor: valorTo
     return (
         <>
             {contextHolder}
-            <div className='relative'>
-                <div className='presenteColaborativo' onClick={() => showModal()}>
+            <div className='relative h-full'>
+                <div className={`presenteColaborativo ${parseFloat(valorObtido) >= parseFloat(valorTotal) ? 'blur-[0.8px]' : null}`} onClick={() => showModal()}>
                     <img src={imgUrl} alt='imagem do presente' className="presenteImagem" />
 
                     <div className="informacoesPresenteColaborativo">
-                        <div>
-                            <h2>{nome}</h2>
-                            <Progress percent={porcentagemContribuida} showInfo={false} strokeColor='#050a30' />
+                        <div className='flex flex-1 flex-col items-left'>
+                            <p className='text-base text=[#000]'>{nome}</p>
+                            <p className='text-[12px] text-[#5f5f5f]'>R$ <b>{valorObtido}</b>/{valorTotal}</p>
+                            <Progress className='max-w-[40%]' percent={porcentagemContribuida} showInfo={false} strokeColor='#050a30' />
                         </div>
                         <img src='./svgs/seta.svg' alt='seta de redirecionamento' className="setaRedirect" />
                     </div>
                 </div>
 
                 {parseFloat(valorObtido) >= parseFloat(valorTotal) && (
-                    <div className="absolute inset-0 bg-black/60 z-10 cursor-not-allowed rounded-[15px]" />
+                    <div className="absolute inset-0 bg-black/60 z-10 cursor-not-allowed rounded-[15px]">
+                        {
+                            presenteConcedido &&
+                            <div className="flex flex-col items-center justify-center h-full">
+                                <div className='rounded-[15px] ' style={{ backgroundColor: 'rgba(5, 10, 48, 0.5)', padding: 10, marginBottom: 25 }}>
+                                    <p className="text-white text-sm sm:text-base md:text-lg text-center pb-[5px]">🎁 Presenteado por:</p>
+                                    <p className="text-white text-sm sm:text-base md:text-lg font-bold text-center">{presenteConcedido}</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 )}
             </div>
 
@@ -212,21 +233,24 @@ export function PresenteColaborativo({ id, nome, urlfoto: imgUrl, valor: valorTo
                             />
                         </div>
 
-                        <Progress
-                            type="circle"
-                            percent={porcentagemContribuida}
-                            format={(percent) => (
-                                <span style={{
-                                    color: '#0F1434',
-                                    fontWeight: 600,
-                                    fontSize: '1em'
-                                }}>
-                                    {percent}%
-                                </span>
-                            )}
-                            size={100}
-                            strokeColor='#0F1434'
-                        />
+                        <div className='flex flex-col items-center justify-center'>
+                            <Progress
+                                type="circle"
+                                percent={porcentagemContribuida}
+                                format={(percent) => (
+                                    <span style={{
+                                        color: '#0F1434',
+                                        fontWeight: 600,
+                                        fontSize: '1em'
+                                    }}>
+                                        {percent}%
+                                    </span>
+                                )}
+                                size={100}
+                                strokeColor='#0F1434'
+                            />
+                            <p className='text-[12px] text-[#5f5f5f] mt-4'>R$ <b>{valorObtido}</b>/{valorTotal}</p>
+                        </div>
                     </Flex>
 
                     <h3 className='RequisicaoNomePresenteador'>Quem está tornando esse presente possível</h3>

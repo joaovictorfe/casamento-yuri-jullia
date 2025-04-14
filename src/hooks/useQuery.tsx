@@ -7,6 +7,7 @@ export const queryKeys = {
     listaDePresentes: 'LISTA_DE_PRESENTES',
     listaDeConvidados: 'LISTA_DE_CONVIDADOS',
     contribuirComPix: 'CONTRIBUIR_COM_PIX',
+    convidadoPresente: 'CONVIDADO_PRESENTE',
 }
 
 const useQuery = {
@@ -34,6 +35,11 @@ const useQuery = {
     contribuirComPix: (valor: number) => UseQuery({
         queryKey: [queryKeys.contribuirComPix],
         queryFn: () => PresentesApi.contribuirComPix(valor),
+    }),
+
+    buscaRelacaoConvidadoPresente: () => UseQuery({
+        queryKey: [queryKeys.convidadoPresente],
+        queryFn: ConvidadosApi.relacaoConvidadoPresente,
     }),
 }
 

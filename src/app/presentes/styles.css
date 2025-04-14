@@ -129,17 +129,11 @@
     align-items: center;
     margin-top: 10px;
     color: #0F1434;
-
-    div {
-        flex: 1;
-        width: 50%;
-    }
 }
 
 .setaRedirect {
     height: 15px;
     width: 15px;
-    align-self: flex-end;
     margin: 5px;
 }
 
