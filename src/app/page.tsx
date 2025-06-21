@@ -9,6 +9,8 @@ export default function Home() {
 
 	const queryClient = useQueryClient();
 	
+	const estamosCasados = new Date().valueOf() > new Date(2025, 5, 21, 10, 30, 0).valueOf();
+
 	useEffect(() => {
 		queryClient && useQuery.preFetchDados(queryClient);
 	}, [queryClient]);
@@ -21,7 +23,7 @@ export default function Home() {
 				Estamos muito felizes em compartilhar com vocês esse momento tão especial em nossas vidas:
 			</div>
 
-			<h1 id="vamosCasar" className="great-vibes-regular">vamos casar!</h1>
+			<h1 id="vamosCasar" className="great-vibes-regular">{!estamosCasados ? 'vamos casar!' : 'Casamos!!!'}</h1>
 
 			<Contador />
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export function Contador() {
 	function diferenca() {
 		const agora: any = new Date();
-		const destino: any = new Date(2025, 5, 21, 10, 0, 0);
+		const destino: any = new Date(2025, 5, 21, 10, 30, 0);
 		return Math.floor((destino - agora) / 1000);
 	}
 
@@ -24,15 +24,21 @@ export function Contador() {
 
 	return (
 		<div id="contador">
-			<div className="tempoParaCasamento">
-				<p className="text-white">{Math.floor(segundosTotais / (60 * 60 * 24))}</p>
-				<p className="text-white">dias</p>
-			</div>
+			{
+				Math.floor(segundosTotais / (60 * 60 * 24)) > 0 &&
+				<div className="tempoParaCasamento">
+					<p className="text-white">{Math.floor(segundosTotais / (60 * 60 * 24))}</p>
+					<p className="text-white">dias</p>
+				</div>
+			}
 
-			<div className="tempoParaCasamento">
-				<p className="text-white">{Math.floor((segundosTotais % (60 * 60 * 24)) / (60 * 60))}</p>
-				<p className="text-white">horas</p>
-			</div>
+			{
+				Math.floor((segundosTotais % (60 * 60 * 24)) / (60 * 60)) > 0 &&
+				<div className="tempoParaCasamento">
+					<p className="text-white">{Math.floor((segundosTotais % (60 * 60 * 24)) / (60 * 60))}</p>
+					<p className="text-white">horas</p>
+				</div>
+			}
 
 			<div className="tempoParaCasamento">
 				<p className="text-white">{Math.floor((segundosTotais % (60 * 60)) / 60)}</p>
